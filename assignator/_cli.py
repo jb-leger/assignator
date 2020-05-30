@@ -189,9 +189,11 @@ def make_timeslots_input(input_desc: InputDesc, timeslotfile):
     content = bcontent.decode(encoding)
     content.replace("\r", "")
     allowed_timeslots = set(x for x in content.split("\n") if not x.startswith("#"))
-    input_desc.timeslots = tuple(
-        ts for ts in input_desc.timeslots if ts in allowed_timeslots
+    newts = tuple(
+        (i, ts) for i, ts in enumerate(input_desc.timeslots) if ts in allowed_timeslots
     )
+    input_desc.timeslots = tuple(ts for i, ts in newts)
+    input_desc.bmat = input_desc.bmat[:, [i for i, ts in newts]]
 
 
 def make_groups_input(input_desc: InputDesc, groupsfile):
@@ -283,7 +285,7 @@ def main():
         sys.exit(0)
 
     if args.timeslots is not None:
-        make_timeslots_input(input_desc, args.timeslot)
+        make_timeslots_input(input_desc, args.timeslots)
 
     if args.groups is not None:
         make_groups_input(input_desc, args.groups)
