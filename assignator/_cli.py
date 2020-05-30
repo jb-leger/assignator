@@ -49,18 +49,18 @@ def parseargs():
               - Give a survey to your students providing a little bit more time
                 slots than student number. Export the survey result in CSV.
               - To have a fist allocation, run the command:
-                  %(prog) survey.csv -o output.csv
+                  %(prog)s survey.csv -o output.csv
                 If you have not assigned students, contact all the students
                 marked as problematic (not only the not assigned) to extend
                 their choices. Once a allocation can be made go to next step.
               - If you have more time slots than student, you can try to choice
                 the time slot you want to free.
                  1. First, export the timeslot list from the csv:
-                     %(prog) survey.csv -e timeslots.txt
+                     %(prog)s survey.csv -e timeslots.txt
                  2. Edit the timeslots file, adding a '#' in the begining of the
                     timeslots you want to free.
                  3. Run the command with the timeslots
-                     prog -t timeslots.txt survey.csv -o output.csv
+                     %(prog)s -t timeslots.txt survey.csv -o output.csv
             """
         ),
         formatter_class=argparse.RawDescriptionHelpFormatter,
