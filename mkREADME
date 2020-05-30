@@ -1,0 +1,30 @@
+#!/usr/bin/env python3
+
+from os import path
+import subprocess
+import inspect
+
+import assignator
+
+here = path.abspath(path.dirname(__file__))
+
+with open("{}/README.md".format(here), "w") as fout:
+    with open("{}/README_header.md".format(here)) as fin:
+        for l in fin:
+            fout.write(l)
+
+    fout.write("## Python module\n")
+    for f in [assignator.assignments]:
+        args = ', '.join(f"{x.name}{'='+str(x.default) if x.default!=x.empty else ''}" for x in inspect.signature(f).parameters.values())
+        fout.write(f"### `{f.__name__}({args})`\n")
+        fout.write("```\n")
+        fout.write(f.__doc__)
+        fout.write("\n```\n")
+
+
+    fout.write("## Cli usage\n")
+    fout.write(
+        "```\n{}\n```\n".format(
+            subprocess.run(["assignator", "-h"], capture_output=True).stdout.decode()
+        )
+    )
