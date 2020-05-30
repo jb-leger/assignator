@@ -24,7 +24,7 @@ __title__ = "assignator"
 __author__ = "Jean-Benoist Leger"
 __licence__ = "MIT"
 
-version_info = (0, 2)
+version_info = (0, 3)
 __version__ = ".".join(map(str, version_info))
 
 from .assignment import assignments
